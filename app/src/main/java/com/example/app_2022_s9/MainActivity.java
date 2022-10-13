@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,9 +13,13 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     EditText val1,val2;
-    TextView res;
+    TextView res,asignacion;
     Button suma,resta,multi,divi;
     Button salir;
+    Button igual;
+    String operacion ="";
+
+    double x,y,re;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,56 +34,62 @@ public class MainActivity extends AppCompatActivity {
         multi = (Button) findViewById(R.id.btnMultiplicacion);
         divi = (Button) findViewById(R.id.btnDivision);
         salir = (Button) findViewById(R.id.btnSalir);
+        igual = (Button) findViewById(R.id.btnIgual);
+        asignacion=(TextView) findViewById(R.id.txtAsignacion);
+
 
         suma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double x, y, re;
+
+                asignacion.setText("(Suma)");
                 x = Integer.parseInt(val1.getText().toString());
                 y = Integer.parseInt(val2.getText().toString());
-                re = x + y;
-                res.setText(String.valueOf(re));
-                //cambiarActividad();
+                //re = x + y;
+                operacion = "+";
 
+                //cambiarActividad();
+                //res.setText(String.valueOf(re));
             }
         });
 
         resta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double x, y, re;
+                asignacion.setText("(Resta)");
                 x = Integer.parseInt(val1.getText().toString());
                 y = Integer.parseInt(val2.getText().toString());
-                re = x - y;
-                res.setText(String.valueOf(re));
-                //cambiarActividad();
+                //re = x - y;
 
+                operacion = "-";
+                //res.setText(String.valueOf(re));
+                //cambiarActividad();
             }
         });
 
         multi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double x, y, re;
+                asignacion.setText("(Multiplicacion)");
                 x = Integer.parseInt(val1.getText().toString());
                 y = Integer.parseInt(val2.getText().toString());
-                re = x * y;
-                res.setText(String.valueOf(re));
+                //re = x * y;
+                operacion = "*";
+                //res.setText(String.valueOf(re));
                 //cambiarActividad();
-
             }
         });
 
         divi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double x, y, re;
+                asignacion.setText("(Division)");
                 x = Integer.parseInt(val1.getText().toString());
                 y = Integer.parseInt(val2.getText().toString());
-                re = x / y;
-                res.setText(String.valueOf(re));
+                //re = x / y;
+                operacion = "/";
+                //res.setText(String.valueOf(re));
                 //cambiarActividad();
-
             }
         });
 
@@ -88,14 +99,42 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
 
-        public void cambiarActividad(){
+        igual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                                //en que momento nos encontramos en el run
+                if(operacion.equals("+")){
+                    re=x+y;
+                    res.setText(String.valueOf(re));
+                }
+                if(operacion.equals("-")){
+                    re=x-y;
+                    res.setText(String.valueOf(re));
+                }
+                if(operacion.equals("*")){
+                    re=x*y;
+                    res.setText(String.valueOf(re));
+                }
+                if(operacion.equals("/")){
+                    re=x/y;
+                    res.setText(String.valueOf(re));
+                }
+
+            }
+        });
+
+        }
+
+        public void cambiarActividad () {
+
+            //en que momento nos encontramos en el run
             Intent i = new Intent(getApplicationContext(), SecondActivity.class);
-            i.putExtra("Resultado",res.getText());
+            i.putExtra("Resultado", res.getText());
             startActivity(i);
+        }
 
-    }
+
+
+
 }
